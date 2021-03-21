@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+
+<robot name="materials">
+
+	<material name="yellow">
+		<color rgba="255 255 0 1"/>
+	</material>
+
+	<material name="red">
+		<color rgba="255 0 0 1"/>
+	</material>
+
+	<material name="white">
+		<color rgba="1 1 1 1"/>
+	</material>
+
+	<link name="main_body">
+		<visual>
+			<geometry>
+				<!--size ="length width heigh"-->
+				<box size="1 0.5 0.15"/>
+			</geometry>
+			<material name="red"/>
+		</visual>
+	</link>
+
+	<!--
+	<link name="name">
+		<visual>
+			<geometry>
+				<box size="l w h"/>
+				<cylinder lenght="l" radius="r"/>
+			</geometry>
+			<origin rpy="roll pitch yaw" xyz="x y z"/>
+			<material name="c"/>
+		</visual>
+	</link>
+	-->
+
+	<link name="right_box">
+		<visual>
+			<geometry>
+				<box size="0.4 0.75 0.15"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0.3 0.0"/>
+			<material name="yellow"/>
+		</visual>
+	</link>
+
+	<joint name="body_to_right_box" type="fixed">
+		<parent link="main_body"/>
+		<child link="right_box"/>
+		<origin xyz="0.0 0.2 0.0"/>		
+	</joint>
+
+	<link name="link_name">
+		<visual name="right cylinder">
+			<origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+			<geometry>
+				<cylinder radius="0.15" length="0.4"/>
+			</geometry>
+			<material name="">
+				<color rgba="1.0 0.0 0.0 1.0"/>
+				<texture filename=""/>
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+			<geometry>
+				<box size="0.0 0.0 0.0"/>
+			</geometry>
+		</collision>
+	</link>
+</robot>
+
+
