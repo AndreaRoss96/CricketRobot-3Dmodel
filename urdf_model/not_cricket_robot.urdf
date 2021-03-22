@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+
+<robot name="materials">
+
+	<material name="yellow">
+		<color rgba="0.8 0.8 0 1"/>
+	</material>
+
+	<material name="red">
+		<color rgba="1 0 0 1"/>
+	</material>
+
+	<material name="white">
+		<color rgba="1 1 1 1"/>
+	</material>
+
+	<link name="base_link">
+		<visual>
+			<geometry>
+				<box size="0.41 0.36 0.06"/>
+			</geometry>
+			<material name="red"/>
+		</visual>
+	</link>
+
+	<!--
+	<link name="name">
+		<visual>
+			<geometry>
+				<box size="l w h"/>
+				<cylinder lenght="l" radius="r"/>
+			</geometry>
+			<origin rpy="roll pitch yaw" xyz="x y z"/>
+			<material name="c"/>
+		</visual>
+	</link>
+	-->
+
+	<!-- ###### RIGHT SIDE ###### -->
+	<link name="right_box">
+		<visual>
+			<geometry>
+				<box size="0.1 0.15 0.06"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0.18 0.0"/>
+			<material name="yellow"/>
+		</visual>
+	</link>
+
+	<joint name="body_to_right_box" type="fixed">
+		<parent link="base_link"/>
+		<child link="right_box"/>
+		<origin xyz="0.0 0.0 0.0"/>		
+	</joint>
+
+	<link name="right_cylinder">
+		<visual name="right_cylinder">
+			<origin rpy="0 1.57075 0" xyz="0 0.255 0"/>
+			<geometry>
+				<cylinder radius="0.03" length="0.1"/>
+			</geometry>
+			<material name="red"/>
+		</visual>
+	</link>
+
+	<joint name="right_box-cylinder" type="fixed">
+		<parent link="right_box"/>
+		<child link="right_cylinder"/>	 
+	</joint>
+
+	<!-- ###### LEFT SIDE ###### -->
+
+	<link name="left_box">
+		<visual>
+			<geometry>
+				<box size="0.1 0.15 0.06"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 -0.18 0.0"/>
+			<material name="yellow"/>
+		</visual>
+	</link>
+
+	<joint name="body_to_left_box" type="fixed">
+		<parent link="base_link"/>
+		<child link="left_box"/>
+		<origin xyz="0.0 -0.18 0.0"/>		
+	</joint>
+
+	<link name="left_cylinder">
+		<visual name="left_cylinder">
+			<origin rpy="0 1.57075 0" xyz="0 -0.255 0"/>
+			<geometry>
+				<cylinder radius="0.03" length="0.1"/>
+			</geometry>
+			<material name="red"/>
+		</visual>
+	</link>
+
+	<joint name="left_box-cylinder" type="fixed">
+		<parent link="left_box"/>
+		<child link="left_cylinder"/>	 
+	</joint>
+
+	<!-- ##### LEG #### -->
+	
+
+
+</robot>
+
+

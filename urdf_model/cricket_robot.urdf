@@ -1,97 +1,76 @@
 <?xml version="1.0"?>
-
-<robot name="materials">
-
-	<material name="yellow">
-		<color rgba="0.8 0.8 0 1"/>
-	</material>
+<robot name="origins">
+  <material name="yellow">
+    <color rgba="0.8 0.8 0 1"/>
+  </material>
 
 	<material name="red">
 		<color rgba="1 0 0 1"/>
 	</material>
 
-	<material name="white">
-		<color rgba="1 1 1 1"/>
-	</material>
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.41 0.36 0.06"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+  </link>
 
-	<link name="main_body">
-		<visual>
-			<geometry>
-				<box size="1 0.5 0.15"/>
-			</geometry>
-			<material name="red"/>
-		</visual>
-	</link>
+  <!-- ##### RIGHT SIDE ##### -->
+  <link name="right_box">
+    <visual>
+      <geometry>
+        <box size="0.1 0.07 0.06"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0.215 0.0"/>
+      <!-- <origin rpy="0 1.57075 0" xyz="0 0 0"/> -->
+    </visual>
+  </link>
 
-	<!--
-	<link name="name">
-		<visual>
-			<geometry>
-				<box size="l w h"/>
-				<cylinder lenght="l" radius="r"/>
-			</geometry>
-			<origin rpy="roll pitch yaw" xyz="x y z"/>
-			<material name="c"/>
-		</visual>
-	</link>
-	-->
+  <joint name="base_to_right_box" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_box"/>
+    <!-- <origin xyz="0 -0.22 0.25"/> -->
+  </joint>
 
-	<!-- ###### RIGHT SIDE ###### -->
-
-	<link name="right_box">
-		<visual>
-			<geometry>
-				<box size="0.4 0.15 0.15"/>
-			</geometry>
-			<origin rpy="0 0 0" xyz="0 0.3 0.0"/>
-			<material name="yellow"/>
-		</visual>
-	</link>
-
-	<joint name="body_to_right_box" type="fixed">
-		<parent link="main_body"/>
-		<child link="right_box"/>
-		<origin xyz="0.0 0.2 0.0"/>		
-	</joint>
-
-	<link name="right_cylinder">
+  <link name="right_cylinder">
 		<visual name="right_cylinder">
-			<origin rpy="0 1.57075 0" xyz="0 0.375 0"/>
+			<origin rpy="0 1.57075 0" xyz="0 0.25 0"/>
 			<geometry>
-				<cylinder radius="0.075" length="0.4"/>
+				<cylinder radius="0.03" length="0.1"/>
 			</geometry>
 			<material name="red"/>
 		</visual>
 	</link>
 
-	<joint name="right_box-cylinder" type="fixed">
+ 	<joint name="right_box-cylinder" type="fixed">
 		<parent link="right_box"/>
 		<child link="right_cylinder"/>	 
 	</joint>
 
-	<!-- ###### LEFT SIDE ###### -->
-
-	<link name="left_box">
+  <!-- ##### LEFT SIDE ##### -->
+  <link name="left_box">
 		<visual>
 			<geometry>
-				<box size="0.4 0.15 0.15"/>
+				<box size="0.1 0.07 0.06"/>
 			</geometry>
-			<origin rpy="0 0 0" xyz="0 -0.3 0.0"/>
-			<material name="yellow"/>
+			<origin rpy="0 0 0" xyz="0 -0.035 0.0"/>
+			<material name="red"/>
 		</visual>
 	</link>
 
 	<joint name="body_to_left_box" type="fixed">
-		<parent link="main_body"/>
+		<parent link="base_link"/>
 		<child link="left_box"/>
-		<origin xyz="0.0 -0.2 0.0"/>		
+		<origin xyz="0.0 -0.18 0.0"/>		
 	</joint>
 
 	<link name="left_cylinder">
 		<visual name="left_cylinder">
-			<origin rpy="0 1.57075 0" xyz="0 -0.375 0"/>
+			<origin rpy="0 1.57075 0" xyz="0 -0.07 0"/>
 			<geometry>
-				<cylinder radius="0.075" length="0.4"/>
+				<cylinder radius="0.03" length="0.1"/>
 			</geometry>
 			<material name="red"/>
 		</visual>
@@ -101,8 +80,4 @@
 		<parent link="left_box"/>
 		<child link="left_cylinder"/>	 
 	</joint>
-
-
 </robot>
-
-
