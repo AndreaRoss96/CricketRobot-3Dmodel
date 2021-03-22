@@ -3,11 +3,11 @@
 <robot name="materials">
 
 	<material name="yellow">
-		<color rgba="255 255 0 1"/>
+		<color rgba="0.8 0.8 0 1"/>
 	</material>
 
 	<material name="red">
-		<color rgba="255 0 0 1"/>
+		<color rgba="1 0 0 1"/>
 	</material>
 
 	<material name="white">
@@ -17,7 +17,6 @@
 	<link name="main_body">
 		<visual>
 			<geometry>
-				<!--size ="length width heigh"-->
 				<box size="1 0.5 0.15"/>
 			</geometry>
 			<material name="red"/>
@@ -37,10 +36,12 @@
 	</link>
 	-->
 
+	<!-- ###### RIGHT SIDE ###### -->
+
 	<link name="right_box">
 		<visual>
 			<geometry>
-				<box size="0.4 0.75 0.15"/>
+				<box size="0.4 0.15 0.15"/>
 			</geometry>
 			<origin rpy="0 0 0" xyz="0 0.3 0.0"/>
 			<material name="yellow"/>
@@ -53,24 +54,55 @@
 		<origin xyz="0.0 0.2 0.0"/>		
 	</joint>
 
-	<link name="link_name">
-		<visual name="right cylinder">
-			<origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+	<link name="right_cylinder">
+		<visual name="right_cylinder">
+			<origin rpy="0 1.57075 0" xyz="0 0.375 0"/>
 			<geometry>
-				<cylinder radius="0.15" length="0.4"/>
+				<cylinder radius="0.075" length="0.4"/>
 			</geometry>
-			<material name="">
-				<color rgba="1.0 0.0 0.0 1.0"/>
-				<texture filename=""/>
-			</material>
+			<material name="red"/>
 		</visual>
-		<collision>
-			<origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-			<geometry>
-				<box size="0.0 0.0 0.0"/>
-			</geometry>
-		</collision>
 	</link>
+
+	<joint name="right_box-cylinder" type="fixed">
+		<parent link="right_box"/>
+		<child link="right_cylinder"/>	 
+	</joint>
+
+	<!-- ###### LEFT SIDE ###### -->
+
+	<link name="left_box">
+		<visual>
+			<geometry>
+				<box size="0.4 0.15 0.15"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 -0.3 0.0"/>
+			<material name="yellow"/>
+		</visual>
+	</link>
+
+	<joint name="body_to_left_box" type="fixed">
+		<parent link="main_body"/>
+		<child link="left_box"/>
+		<origin xyz="0.0 -0.2 0.0"/>		
+	</joint>
+
+	<link name="left_cylinder">
+		<visual name="left_cylinder">
+			<origin rpy="0 1.57075 0" xyz="0 -0.375 0"/>
+			<geometry>
+				<cylinder radius="0.075" length="0.4"/>
+			</geometry>
+			<material name="red"/>
+		</visual>
+	</link>
+
+	<joint name="left_box-cylinder" type="fixed">
+		<parent link="left_box"/>
+		<child link="left_cylinder"/>	 
+	</joint>
+
+
 </robot>
 
 
