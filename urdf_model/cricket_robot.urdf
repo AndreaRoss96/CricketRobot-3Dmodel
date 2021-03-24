@@ -80,4 +80,21 @@
 		<parent link="left_box"/>
 		<child link="left_cylinder"/>	 
 	</joint>
+
+  <!-- ##### FRONT RIGHT LEG ##### -->
+  <link name="frl_shoulder_cylinder">
+    <visual name="frl_shoulder_cylinder">
+      <origin rpy="0 1.57075 0" xyz="0.0 0.0 0"/>
+      <geometry>
+        <cylinder radius="0.03" length="0.1"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+
+  <joint name="joint_name" type="fixed">
+    <origin xyz="0.5 0.25 0.0" rpy="0 0 0.0"/>
+    <parent link="right_cylinder"/>
+    <child link="frl_shoulder_cylinder"/>
+  </joint>
 </robot>
