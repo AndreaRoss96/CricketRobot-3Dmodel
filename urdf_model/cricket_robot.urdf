@@ -157,7 +157,6 @@
   </joint>
 
   <!-- KNEE -->
-
   <link name="frl_knee_base">
     <visual name="frl_knee_base">
       <origin xyz="0.05 0.0 0.0" rpy="0.0 0.0 0.0"/>
@@ -297,20 +296,135 @@
   
   <link name="fll_shoulder_box">
     <visual name="fll_shoulder_box">
-      <origin rpy="0 1.57075 0" xyz="0.0 -0.0005 0"/>
+      <origin rpy="0 0 0" xyz="-0.05 -0.0005 0"/>
       <geometry>
-        <box size="0.06 0.03 0.12"/>
+        <box size="0.12 0.03 0.06"/>
       </geometry>
       <material name="yellow"/>
     </visual>
   </link>
 
   <joint name="fll_shoulder_cyl-box" type="fixed">
-    <origin xyz="0.0 -0.017 0.0" rpy="0.0 0.0 0.0"/>
+    <origin xyz="0.05 -0.017 0.0" rpy="0.0 0.0 0.0"/>
     <parent link="fll_shoulder_cylinder"/>
     <child link="fll_shoulder_box"/>
   </joint>
   
+  <!-- * SHOULDER 2  -->
+  <link name="fll_shoulder2_base">
+    <visual name="fll_shoulder2_base">
+      <origin xyz="-0.015 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.05 0.01 0.06"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+
+  <joint name="fll_shoulder2-shoulder" type="fixed">
+    <origin xyz="0.0 -0.02 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="fll_shoulder_box"/>
+    <child link="fll_shoulder2_base"/>
+  </joint>
+
+  <link name="fll_shoulder2_box">
+    <visual name="fll_shoulder2_box">
+      <origin xyz="0.045 -0.02 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.11 0.05 0.06"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+
+  <joint name="fll_shoulder2_base-box" type="fixed">
+    <origin xyz="-0.14 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="fll_shoulder2_base"/>
+    <child link="fll_shoulder2_box"/>
+  </joint>
+
+  <!-- KNEE -->
+  <link name="fll_knee_base">
+    <visual name="fll_knee_base">
+      <origin xyz="0.05 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.12 0.01 0.06"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+
+  <joint name="fll_shoulder2-knee" type="fixed">
+    <origin xyz="0.0 -0.052 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="fll_shoulder2_box"/>
+    <child link="fll_knee_base"/>
+  </joint>
+
+  <link name="fll_knee_box">
+    <visual name="fll_knee_box">
+      <origin xyz="-0.03 0.02 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.08 0.05 0.06"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+
+  <joint name="fll_knee_base-box" type="fixed">
+    <origin xyz="0.18 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="fll_knee_base"/>
+    <child link="fll_knee_box"/>
+  </joint>
+
+  <!-- ANKLE & TRACK -->
+  <link name="fll_jointed_track">
+    <visual name="fll_jointed_track">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 1.57075 1.57075"/>
+      <geometry>
+        <cylinder radius="0.03" length="0.05"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+
+  <joint name="fll_ankle" type="fixed">
+    <origin xyz="0.0 -0.032 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="fll_knee_box"/>
+    <child link="fll_jointed_track"/>
+  </joint>
+
+  <link name="fll_track">
+    <visual name="fll_track">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.190 0.05 0.06"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+
+  <joint name="fll_jointed_track-track" type="fixed">
+    <origin xyz="0.095 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="fll_jointed_track"/>
+    <child link="fll_track"/>
+  </joint>
+
+  <link name="fll_ends_track">
+    <visual name="fll_ends_track">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 1.57075 1.57075"/>
+      <geometry>
+        <cylinder radius="0.03" length="0.05"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+
+  <joint name="fll_final_track_joint" type="fixed">
+    <origin xyz="0.095 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="fll_track"/>
+    <child link="fll_ends_track"/>
+  </joint>
+
   <!-- ######################### -->
   <!-- ##### BACK LEFT LEG ##### -->
   <!-- ######################### -->
