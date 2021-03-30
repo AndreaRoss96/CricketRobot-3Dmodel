@@ -1,0 +1,74 @@
+
+<?xml version="1.0"?>
+<robot name="cricket_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+  
+  <xacro:property name="body_height" value="0.06"/>
+  <xacro:property name="body_length" value="0.41"/>
+  <xacro:property name="body_width" value="0.36"/>
+  <xacro:property name="track_length" value="0.25"/>
+  <xacro:property name="body_box_size" value="0.1"/>
+  <xacro:property name="bodylen" value="0.6"/>
+  <xacro:property name="baselen" value="0.4"/>
+  <xacro:property name="wheeldiam" value="0.07"/>
+  <xacro:property name="pi" value="3.1415"/>
+
+  <material name="yellow">
+    <color rgba="0.8 0.8 0 1"/>
+  </material>
+
+  <material name="red">
+    <color rgba="1 0 0 1"/>
+  </material>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="${body_length} ${body_width} ${body_height}"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+  </link>
+
+  <!-- ###################### -->
+  <!-- #####  BODY  BOX ##### -->
+  <!-- ###################### -->
+
+  <xacro:macro name="body_box" params="body_side origin_bb origin_bc">
+
+    <link name="${body_side}_box">
+      <visual>
+        <geometry>
+            <box size="${body_box_size} 0.04 ${body_height}"/>
+        </geometry>
+        <material name="red"/>
+      </visual>
+    </link>
+
+    <joint name="body_to_${body_side}_box" type="fixed">
+      <parent link="base_link"/>
+      <child link="${body_side}_box"/>
+      <origin xyz="0.0 ${origin_bb} 0.0"/>		
+    </joint>
+
+    <link name="${body_side}_cylinder">
+      <visual name="${body_side}_cylinder">
+        <origin rpy="0 ${pi/2} 0" xyz="0 0.0 0"/>
+        <geometry>
+          <cylinder radius="0.03" length="0.1"/>
+        </geometry>
+        <material name="red"/>
+      </visual>
+    </link>
+
+    <joint name="${body_side}_box-cylinder" type="fixed">
+      <parent link="${body_side}_box"/>
+      <child link="${body_side}_cylinder"/>	 
+      <origin xyz="0.0 ${origin_bc} 0.0" rpy="0.0 0.0 0.0"/>
+    </joint>
+
+  </xacro:macro>
+
+  <xacro:body_box body_side="right" origin_bb="0.2" origin_bb="0.02"/>
+  <xacro:body_box body_side="left" origin_bb="-0.2" origin_bc="-0.02"/>
+
+</robot>
