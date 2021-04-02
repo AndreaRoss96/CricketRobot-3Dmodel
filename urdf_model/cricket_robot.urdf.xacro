@@ -505,4 +505,11 @@
   <xacro:left_leg body_side="front" o_shoulder="0.12" o_s_box="-0.05" o_s2_base="-0.015" o_s2_box="0.045" o_s2_base_box="-0.14" o_k_box="-0.03" o_k_base_box="0.18" o_track="0.095" rpy_track="0.0"/>
   <xacro:left_leg body_side="back" o_shoulder="-0.12" o_s_box="0.05" o_s2_base="0.015" o_s2_box="-0.045" o_s2_base_box="0.14" o_k_box="0.03" o_k_base_box="-0.18" o_track="-0.095" rpy_track="3.1415"/>
 
+  <!-- Gazebo plugin for ROS Control -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
+
 </robot>
