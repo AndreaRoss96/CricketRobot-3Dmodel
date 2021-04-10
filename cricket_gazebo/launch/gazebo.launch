@@ -6,10 +6,11 @@
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
-  <arg name="model" default="$(find CricketRobot_3Dmodel)/urdf_model/cricket_robot.urdf.xacro"/>
+  <arg name="model" default="$(find cricket_robot)/cricket_description/urdf/cricket_robot.urdf.xacro"/>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find cricket_robot)/cricket_gazebo/worlds/robot.world"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="$(arg paused)"/>
@@ -17,7 +18,7 @@
     <arg name="headless" value="$(arg headless)"/>
   </include>
 
-  <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
 
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"

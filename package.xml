@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>circket_robot</name>
+  <name>cricket_robot</name>
   <version>0.1.0</version>
   <description>From the urdf_sim_tutorial oackege</description>
   <author email="andrea.rossolini@ucalgary.ca">Andrea Rossolini</author>
@@ -12,6 +12,7 @@
   <exec_depend>controller_manager</exec_depend>
   <exec_depend>diff_drive_controller</exec_depend>
   <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>gazebo_plugins</exec_depend>
   <exec_depend>gazebo_ros_control</exec_depend>
   <exec_depend>joint_state_controller</exec_depend>
   <exec_depend>position_controllers</exec_depend>
