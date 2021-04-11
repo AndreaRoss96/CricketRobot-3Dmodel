@@ -1,10 +1,11 @@
 <launch>
 
   <arg name="model" default="$(find cricket_robot)/cricket_description/urdf/cricket_robot_xacro.urdf"/>
-  <arg name="gui" default="true" />
-  <arg name="rvizconfig" default="$(find cricket_robot)/cricket_gazebo/rviz/urdf.rviz" />
+  <arg name="gui" default="true"/>
+  <arg name="rvizconfig" default="$(find cricket_robot)/cricket_gazebo/rviz/urdf.rviz"/>
 
-  <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
+  <param name="use_gui" value="$(arg gui)"/>
 
   <node if="$(arg gui)" name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
   <node unless="$(arg gui)" name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
