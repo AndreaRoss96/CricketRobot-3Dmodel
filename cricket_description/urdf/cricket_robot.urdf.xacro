@@ -101,6 +101,7 @@
           <cylinder radius="${cyl_rad}" length="0.1"/>
         </geometry>
       </collision>
+      <xacro:default_inertial mass="0.5"/>
     </link>
 
     <joint name="${body_side}_box-cylinder" type="fixed">
@@ -133,21 +134,22 @@
           <cylinder radius="${cyl_rad}" length="0.12"/>
         </geometry>  
       </collision>
+      <xacro:default_inertial mass="0.5"/>
     </link>
 
-    <!-- <joint name="r_${body_side}_shoulder-body" type="revolute">
+    <joint name="r_${body_side}_shoulder-body" type="revolute">
       <axis xyz="1 0.0 0.0"/>
       <limit effort="1000.0" lower="-1.57075" upper="1.57075" velocity="0.5"/>
       <origin xyz="${o_shoulder} 0.0 0.0" rpy="0 0 0.0"/>
       <parent link="right_cylinder"/>
       <child link="r_${body_side}_shoulder_cylinder"/>
-    </joint> -->
+    </joint>
 
-    <joint name="r_${body_side}_shoulder-body" type="fixed">
+    <!-- <joint name="r_${body_side}_shoulder-body" type="fixed">
       <origin xyz="${o_shoulder} 0.0 0.0" rpy="0 0 0.0"/>
       <parent link="right_cylinder"/>
       <child link="r_${body_side}_shoulder_cylinder"/>
-    </joint>
+    </joint> -->
     
     <link name="r_${body_side}_shoulder_box">
       <visual name="r_${body_side}_shoulder_box">

@@ -1,12 +1,13 @@
 <launch>
   <arg name="model" default="$(find cricket_robot)/cricket_description/urdf/cricket_robot.urdf.xacro"/>
-  <arg name="rvizconfig" default="$(find cricket_robot)/cricket_gazebo/rviz/urdf.rviz" />
+  <!-- <arg name="rvizconfig" default="$(find cricket_robot)/cricket_gazebo/rviz/urdf.rviz" /> -->
 
   <include file="$(find cricket_robot)/cricket_gazebo/launch/gazebo.launch">
     <arg name="model" value="$(arg model)"/>
   </include>
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" />
+  <node name="rviz" pkg="rviz" type="rviz"/>
+   <!-- args="-d $(arg rvizconfig)" /> -->
 
   <rosparam command="load"
             file="$(find cricket_robot)/cricket_gazebo/config/joints.yaml"
