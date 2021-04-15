@@ -23,4 +23,4 @@ catkin_make
 
 echo "ws set up, launch:"
 
-roslaunch cricket_robot gazebo.launch
+roslaunch cricket_robot joints.launch

@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <robot name="cricket_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+  
   <xacro:property name="body_height" value="0.06"/>
   <xacro:property name="body_length" value="0.41"/>
   <xacro:property name="body_width" value="0.36"/>
@@ -9,7 +10,8 @@
   <xacro:property name="cyl_rad" value="0.03" />
 
   <material name="yellow">
-    <color rgba="0.8 0.8 0 1"/>
+    <!-- <color rgba="0.8 0.8 0 1"/> -->
+    <color rgba="1 0 0 1"/>
   </material>
 
   <material name="red">
@@ -37,12 +39,35 @@
     </collision>
   </link>
 
+  <link name="dummy_link">
+    <visual name="">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="${body_length} ${body_width} ${body_height}"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.0 0.0 0.0"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="10"/>
+  </link>
+
+  <joint name="dummy_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="base_link"/>
+    <child link="dummy_link"/>
+    <axis xyz="0.0 0.0 0.0"/>
+  </joint>
+
   <!-- ###################### -->
   <!-- #####  BODY  BOX ##### -->
   <!-- ###################### -->
 
   <xacro:macro name="body_box" params="body_side origin_bb origin_bc">
-
     <link name="${body_side}_box">
       <visual>
         <geometry>
@@ -52,7 +77,7 @@
       </visual>
       <collision>
         <geometry>
-            <box size="${body_box_size} 0.04 ${body_height}"/>
+            <box size="${body_box_size} 0.04 ${body_height}"/> 
         </geometry>
       </collision>
     </link>
@@ -60,7 +85,7 @@
     <joint name="body_to_${body_side}_box" type="fixed">
       <parent link="base_link"/>
       <child link="${body_side}_box"/>
-      <origin xyz="0.0 ${origin_bb} 0.0"/>		
+      <origin xyz="0.0 ${origin_bb} 0.0"/>
     </joint>
 
     <link name="${body_side}_cylinder">
@@ -94,7 +119,7 @@
   <!-- ###################### -->
 
   <xacro:macro name="right_leg" params="body_side o_shoulder o_s_box o_s2_base o_s2_box o_s2_base_box o_k_box o_k_base_box o_track rpy_track">
-    <!-- * SHOULDER 1 -->
+    <!-- SHOULDER 1 -->
     <link name="r_${body_side}_shoulder_cylinder">
       <visual name="r_${body_side}_shoulder_cylinder">
         <origin rpy="0 ${pi/2} 0" xyz="0.0 0.0 0"/>
@@ -110,9 +135,15 @@
       </collision>
     </link>
 
-    <joint name="r_${body_side}_shoulder-body" type="revolute">
+    <!-- <joint name="r_${body_side}_shoulder-body" type="revolute">
       <axis xyz="1 0.0 0.0"/>
       <limit effort="1000.0" lower="-1.57075" upper="1.57075" velocity="0.5"/>
+      <origin xyz="${o_shoulder} 0.0 0.0" rpy="0 0 0.0"/>
+      <parent link="right_cylinder"/>
+      <child link="r_${body_side}_shoulder_cylinder"/>
+    </joint> -->
+
+    <joint name="r_${body_side}_shoulder-body" type="fixed">
       <origin xyz="${o_shoulder} 0.0 0.0" rpy="0 0 0.0"/>
       <parent link="right_cylinder"/>
       <child link="r_${body_side}_shoulder_cylinder"/>
@@ -131,6 +162,7 @@
           <box size="0.12 0.03 0.06"/>
         </geometry>
       </collision>
+      <xacro:default_inertial mass="3.5"/>
     </link>
 
     <joint name="r_${body_side}_shoulder_cyl-box" type="fixed">
@@ -139,7 +171,7 @@
       <child link="r_${body_side}_shoulder_box"/>
     </joint>
 
-    <!-- * SHOULDER 2  -->
+    <!-- SHOULDER 2 -->
     <link name="r_${body_side}_shoulder2_base">
       <visual name="r_${body_side}_shoulder2_base">
         <origin xyz="${o_s2_base} 0.0 0.0" rpy="0.0 0.0 0.0"/>
@@ -175,6 +207,7 @@
           <box size="0.11 0.05 0.06"/>
         </geometry>
       </collision>
+      <xacro:default_inertial mass="3"/>
     </link>
 
     <joint name="r_${body_side}_shoulder2_base-box" type="fixed">
@@ -219,6 +252,7 @@
           <box size="0.08 0.05 0.06"/>
         </geometry>
       </collision>
+      <xacro:default_inertial mass="3.5"/>
     </link>
 
     <joint name="r_${body_side}_knee_base-box" type="fixed">
@@ -263,6 +297,7 @@
           <box size="0.190 0.05 0.06"/>
         </geometry>
       </collision>
+      <xacro:default_inertial mass="4"/>
     </link>
 
     <joint name="r_${body_side}_jointed_track-track" type="fixed">
@@ -298,11 +333,11 @@
   <xacro:right_leg body_side="back" o_shoulder="-0.12" o_s_box="0.05" o_s2_base="0.015" o_s2_box="-0.045" o_s2_base_box="0.14" o_k_box="0.03" o_k_base_box="-0.18" o_track="-0.095" rpy_track="3.1415"/>
 
   <!-- ###################### -->
-  <!-- ##### LEFT LEGS ##### -->
+  <!-- ##### LEFT LEGS ###### -->
   <!-- ###################### -->
 
   <xacro:macro name="left_leg" params="body_side o_shoulder o_s_box o_s2_base o_s2_box o_s2_base_box o_k_box o_k_base_box o_track rpy_track">
-    <!-- * SHOULDER 1 -->
+    <!-- SHOULDER 1 -->
     <link name="l_${body_side}_shoulder_cylinder">
       <visual name="l_${body_side}_shoulder_cylinder">
         <origin rpy="0 ${pi/2} 0" xyz="0.0 0.0 0"/>
@@ -316,6 +351,7 @@
           <cylinder radius="${cyl_rad}" length="0.12"/>
         </geometry>  
       </collision>
+      <xacro:default_inertial mass="3.5"/>
     </link>
 
     <joint name="l_${body_side}_shoulder-body" type="revolute">
@@ -347,7 +383,7 @@
       <child link="l_${body_side}_shoulder_box"/>
     </joint>
 
-    <!-- * SHOULDER 2  -->
+    <!-- SHOULDER 2  -->
     <link name="l_${body_side}_shoulder2_base">
       <visual name="l_${body_side}_shoulder2_base">
         <origin xyz="${o_s2_base} 0.0 0.0" rpy="0.0 0.0 0.0"/>
@@ -383,6 +419,7 @@
           <box size="0.11 0.05 0.06"/>
         </geometry>
       </collision>
+      <xacro:default_inertial mass="3"/>
     </link>
 
     <joint name="l_${body_side}_shoulder2_base-box" type="fixed">
@@ -405,6 +442,7 @@
           <box size="0.12 0.01 0.06"/>
         </geometry>
       </collision>
+      <xacro:default_inertial mass="4"/>
     </link>
 
     <joint name="l_${body_side}_shoulder2-knee" type="continuous">
@@ -471,6 +509,7 @@
           <box size="0.190 0.05 0.06"/>
         </geometry>
       </collision>
+      <xacro:default_inertial mass="4.5"/>
     </link>
 
     <joint name="l_${body_side}_jointed_track-track" type="fixed">
@@ -503,7 +542,7 @@
   </xacro:macro>
 
   <xacro:left_leg body_side="front" o_shoulder="0.12" o_s_box="-0.05" o_s2_base="-0.015" o_s2_box="0.045" o_s2_base_box="-0.14" o_k_box="-0.03" o_k_base_box="0.18" o_track="0.095" rpy_track="0.0"/>
-  <xacro:left_leg body_side="back" o_shoulder="-0.12" o_s_box="0.05" o_s2_base="0.015" o_s2_box="-0.045" o_s2_base_box="0.14" o_k_box="0.03" o_k_base_box="-0.18" o_track="-0.095" rpy_track="3.1415"/>
+  <xacro:left_leg body_side="back" o_shoulder="-0.12" o_s_box="0.05" o_s2_base="0.015" o_s2_box="-0.045" o_s2_base_box="0.14" o_k_box="0.03" o_k_base_box="-0.18" o_track="-0.095" rpy_track="3.1415"/> 
 
   <!-- Gazebo plugin for ROS Control -->
   <gazebo>

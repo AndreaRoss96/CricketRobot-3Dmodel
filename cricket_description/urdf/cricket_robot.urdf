@@ -23,6 +23,31 @@
       </geometry>
     </collision>
   </link>
+  <link name="dummy_link">
+    <visual name="">
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.0 0.0 0.0"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.0 0.0 0.0"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+  <joint name="dummy_joint" type="fixed">
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+    <parent link="base_link"/>
+    <child link="dummy_link"/>
+    <axis xyz="0.0 0.0 0.0"/>
+  </joint>
   <!-- ###################### -->
   <!-- #####  BODY  BOX ##### -->
   <!-- ###################### -->
@@ -103,7 +128,7 @@
   <!-- ###################### -->
   <!-- ##### RIGHT LEGS ##### -->
   <!-- ###################### -->
-  <!-- * SHOULDER 1 -->
+  <!-- SHOULDER 1 -->
   <link name="r_front_shoulder_cylinder">
     <visual name="r_front_shoulder_cylinder">
       <origin rpy="0 1.57075 0" xyz="0.0 0.0 0"/>
@@ -138,13 +163,17 @@
         <box size="0.12 0.03 0.06"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="3.5"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="r_front_shoulder_cyl-box" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.05 0.017 0.0"/>
     <parent link="r_front_shoulder_cylinder"/>
     <child link="r_front_shoulder_box"/>
   </joint>
-  <!-- * SHOULDER 2  -->
+  <!-- SHOULDER 2 -->
   <link name="r_front_shoulder2_base">
     <visual name="r_front_shoulder2_base">
       <origin rpy="0.0 0.0 0.0" xyz="-0.015 0.0 0.0"/>
@@ -178,6 +207,10 @@
         <box size="0.11 0.05 0.06"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="3"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="r_front_shoulder2_base-box" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="-0.14 0.0 0.0"/>
@@ -218,6 +251,10 @@
         <box size="0.08 0.05 0.06"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="3.5"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="r_front_knee_base-box" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.18 0.0 0.0"/>
@@ -258,6 +295,10 @@
         <box size="0.190 0.05 0.06"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="4"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="r_front_jointed_track-track" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.095 0.0 0.0"/>
@@ -284,7 +325,7 @@
     <parent link="r_front_track"/>
     <child link="r_front_ends_track"/>
   </joint>
-  <!-- * SHOULDER 1 -->
+  <!-- SHOULDER 1 -->
   <link name="r_back_shoulder_cylinder">
     <visual name="r_back_shoulder_cylinder">
       <origin rpy="0 1.57075 0" xyz="0.0 0.0 0"/>
@@ -319,13 +360,17 @@
         <box size="0.12 0.03 0.06"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="3.5"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="r_back_shoulder_cyl-box" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="-0.05 0.017 0.0"/>
     <parent link="r_back_shoulder_cylinder"/>
     <child link="r_back_shoulder_box"/>
   </joint>
-  <!-- * SHOULDER 2  -->
+  <!-- SHOULDER 2 -->
   <link name="r_back_shoulder2_base">
     <visual name="r_back_shoulder2_base">
       <origin rpy="0.0 0.0 0.0" xyz="0.015 0.0 0.0"/>
@@ -359,6 +404,10 @@
         <box size="0.11 0.05 0.06"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="3"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="r_back_shoulder2_base-box" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>
@@ -399,6 +448,10 @@
         <box size="0.08 0.05 0.06"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="3.5"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="r_back_knee_base-box" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="-0.18 0.0 0.0"/>
@@ -439,6 +492,10 @@
         <box size="0.190 0.05 0.06"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="4"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="r_back_jointed_track-track" type="fixed">
     <origin rpy="0.0 3.1415 0.0" xyz="0.095 0.0 0.0"/>
@@ -466,9 +523,9 @@
     <child link="r_back_ends_track"/>
   </joint>
   <!-- ###################### -->
-  <!-- ##### LEFT LEGS ##### -->
+  <!-- ##### LEFT LEGS ###### -->
   <!-- ###################### -->
-  <!-- * SHOULDER 1 -->
+  <!-- SHOULDER 1 -->
   <link name="l_front_shoulder_cylinder">
     <visual name="l_front_shoulder_cylinder">
       <origin rpy="0 1.57075 0" xyz="0.0 0.0 0"/>
@@ -482,6 +539,10 @@
         <cylinder length="0.12" radius="0.03"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="3.5"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="l_front_shoulder-body" type="revolute">
     <axis xyz="1 0.0 0.0"/>
@@ -509,7 +570,7 @@
     <parent link="l_front_shoulder_cylinder"/>
     <child link="l_front_shoulder_box"/>
   </joint>
-  <!-- * SHOULDER 2  -->
+  <!-- SHOULDER 2  -->
   <link name="l_front_shoulder2_base">
     <visual name="l_front_shoulder2_base">
       <origin rpy="0.0 0.0 0.0" xyz="-0.015 0.0 0.0"/>
@@ -543,6 +604,10 @@
         <box size="0.11 0.05 0.06"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="3"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="l_front_shoulder2_base-box" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="-0.14 0.0 0.0"/>
@@ -563,6 +628,10 @@
         <box size="0.12 0.01 0.06"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="4"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="l_front_shoulder2-knee" type="continuous">
     <axis xyz="0.0 1 0.0"/>
@@ -623,6 +692,10 @@
         <box size="0.190 0.05 0.06"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="4.5"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="l_front_jointed_track-track" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.095 0.0 0.0"/>
@@ -649,7 +722,7 @@
     <parent link="l_front_track"/>
     <child link="l_front_ends_track"/>
   </joint>
-  <!-- * SHOULDER 1 -->
+  <!-- SHOULDER 1 -->
   <link name="l_back_shoulder_cylinder">
     <visual name="l_back_shoulder_cylinder">
       <origin rpy="0 1.57075 0" xyz="0.0 0.0 0"/>
@@ -663,6 +736,10 @@
         <cylinder length="0.12" radius="0.03"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="3.5"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="l_back_shoulder-body" type="revolute">
     <axis xyz="1 0.0 0.0"/>
@@ -690,7 +767,7 @@
     <parent link="l_back_shoulder_cylinder"/>
     <child link="l_back_shoulder_box"/>
   </joint>
-  <!-- * SHOULDER 2  -->
+  <!-- SHOULDER 2  -->
   <link name="l_back_shoulder2_base">
     <visual name="l_back_shoulder2_base">
       <origin rpy="0.0 0.0 0.0" xyz="0.015 0.0 0.0"/>
@@ -724,6 +801,10 @@
         <box size="0.11 0.05 0.06"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="3"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="l_back_shoulder2_base-box" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>
@@ -744,6 +825,10 @@
         <box size="0.12 0.01 0.06"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="4"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="l_back_shoulder2-knee" type="continuous">
     <axis xyz="0.0 1 0.0"/>
@@ -804,6 +889,10 @@
         <box size="0.190 0.05 0.06"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="4.5"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
   </link>
   <joint name="l_back_jointed_track-track" type="fixed">
     <origin rpy="0.0 3.1415 0.0" xyz="0.095 0.0 0.0"/>
