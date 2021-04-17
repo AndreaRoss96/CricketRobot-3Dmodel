@@ -1,0 +1,34 @@
+
+[ERROR] [1618682908.783714121, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/r_front_shoulder_to_body
+[ERROR] [1618682908.794247342, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/r_front_shoulder2_to_shoulder
+[ERROR] [1618682908.800220533, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/r_front_shoulder2_to_knee
+[ERROR] [1618682908.803006593, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/r_front_ankle
+[ERROR] [1618682908.808205782, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/r_front_final_track_joint
+[ERROR] [1618682908.815622572, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/r_back_shoulder_to_body
+[ERROR] [1618682908.817127458, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/r_back_shoulder2_to_shoulder
+[ERROR] [1618682908.824096123, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/r_back_shoulder2_to_knee
+[ERROR] [1618682908.837458865, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/r_back_ankle
+[ERROR] [1618682908.848766636, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/r_back_final_track_joint
+[ERROR] [1618682908.855007774, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/l_front_shoulder_to_body
+[ERROR] [1618682908.864643563, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/l_front_shoulder2_to_shoulder
+[ERROR] [1618682908.875999243, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/l_front_shoulder2_to_knee
+[ERROR] [1618682908.883064632, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/l_front_ankle
+[ERROR] [1618682908.889134129, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/l_front_final_track_joint
+[ERROR] [1618682908.894191248, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/l_back_shoulder_to_body
+[ERROR] [1618682908.905280757, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/l_back_shoulder2_to_shoulder
+[ERROR] [1618682908.916800615, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/l_back_shoulder2_to_knee
+[ERROR] [1618682908.924463066, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/l_back_ankle
+[ERROR] [1618682908.926031272, 0.001000000]: No p gain specified for pid.  Namespace: /gazebo_ros_control/pid_gains/l_back_final_track_joint
+[ INFO] [1618682908.958146187, 0.001000000]: Loaded gazebo_ros_control.
+[ERROR] [1618682909.559166242, 0.066000000]: Exception thrown: Could not find resource 'r_front_final_track_joint' in 'hardware_interface::PositionJointInterface'.
+[ERROR] [1618682909.562684810, 0.066000000]: Failed to initialize the controller
+[ERROR] [1618682909.563310537, 0.066000000]: Initializing controller 'legs_controller' failed
+[ERROR] [1618682910.565174, 0.237000]: Failed to load legs_controller
+
+...
+
+[ERROR] [1618682911.184255122, 0.276000000]: Exception thrown while initializing controller 'cricket_diff_drive_controller'.
+Could not find resource 'l_front_final_track_joint' in 'hardware_interface::VelocityJointInterface'.
+[ERROR] [1618682911.190726003, 0.277000000]: Initializing controller 'cricket_diff_drive_controller' failed
+[ERROR] [1618682912.226720, 0.410000]: Failed to load cricket_diff_drive_controller
+
