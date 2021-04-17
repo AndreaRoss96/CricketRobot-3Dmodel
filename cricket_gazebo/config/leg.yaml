@@ -1,0 +1,7 @@
+type: "position_controllers/JointGroupPositionController"
+joints:
+  - r_front_shoulder_to_body
+  - r_front_shoulder2_to_shoulder
+  - r_front_shoulder2_to_knee
+  - r_front_ankle
+  - r_front_final_track_joint

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="gazebo1" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="first_transmission" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:property name="width" value="0.2" />
   <xacro:property name="leglen" value="0.6" />
@@ -7,13 +7,7 @@
   <xacro:property name="bodylen" value="0.6" />
   <xacro:property name="baselen" value="0.4" />
   <xacro:property name="wheeldiam" value="0.07" />
-  <xacro:property name="body_height" value="0.06"/>
-  <xacro:property name="body_length" value="0.41"/>
-  <xacro:property name="body_width" value="0.36"/>
-  <xacro:property name="track_length" value="0.25"/>
-  <xacro:property name="body_box_size" value="0.1"/>
   <xacro:property name="pi" value="3.1415" />
-  <xacro:property name="cyl_rad" value="0.03" />
 
   <material name="blue">
     <color rgba="0 0 0.8 1"/>
@@ -37,70 +31,17 @@
   <link name="base_link">
     <visual>
       <geometry>
-        <box size="${body_length} ${body_width} ${body_height}"/>
+        <cylinder radius="${width}" length="${bodylen}"/>
       </geometry>
-      <material name="red"/>
+      <material name="blue"/>
     </visual>
     <collision>
       <geometry>
-        <box size="${body_length} ${body_width} ${body_height}"/>
+        <cylinder radius="${width}" length="${bodylen}"/>
       </geometry>
     </collision>
+    <xacro:default_inertial mass="10"/>
   </link>
-
-  <!-- ###################### -->
-  <!-- #####  BODY  BOX ##### -->
-  <!-- ###################### -->
-
-  <xacro:macro name="body_box" params="body_side origin_bb origin_bc">
-    <link name="${body_side}_box">
-      <visual>
-        <geometry>
-            <box size="${body_box_size} 0.04 ${body_height}"/>
-        </geometry>
-        <material name="red"/>
-      </visual>
-      <collision>
-        <geometry>
-            <box size="${body_box_size} 0.04 ${body_height}"/>
-        </geometry>
-      </collision>
-    </link>
-
-    <joint name="body_to_${body_side}_box" type="fixed">
-      <parent link="base_link"/>
-      <child link="${body_side}_box"/>
-      <origin xyz="0.0 ${origin_bb} 0.0"/>		
-    </joint>
-
-    <link name="${body_side}_cylinder">
-      <visual name="${body_side}_cylinder">
-        <origin rpy="0 ${pi/2} 0" xyz="0 0.0 0"/>
-        <geometry>
-          <cylinder radius="${cyl_rad}" length="0.1"/>
-        </geometry>
-        <material name="red"/>
-      </visual>
-      <collision>
-        <geometry>
-          <cylinder radius="${cyl_rad}" length="0.1"/>
-        </geometry>
-      </collision>
-    </link>
-
-    <joint name="${body_side}_box-cylinder" type="fixed">
-      <parent link="${body_side}_box"/>
-      <child link="${body_side}_cylinder"/>	 
-      <origin xyz="0.0 ${origin_bc} 0.0" rpy="0.0 0.0 0.0"/>
-    </joint>
-
-  </xacro:macro>
-
-  <xacro:body_box body_side="right" origin_bb="0.2" origin_bc="0.02"/>
-  <xacro:body_box body_side="left" origin_bb="-0.2" origin_bc="-0.02"/>
-<!-- ===========================================
-===== CAZZO
-================================================ -->
 
   <xacro:macro name="wheel" params="prefix suffix reflect">
 
@@ -176,7 +117,7 @@
     <xacro:wheel prefix="${prefix}" suffix="front" reflect="1"/>
     <xacro:wheel prefix="${prefix}" suffix="back" reflect="-1"/>
   </xacro:macro>
-  <!-- <xacro:leg prefix="right" reflect="-1" /> -->
+  <xacro:leg prefix="right" reflect="-1" />
   <xacro:leg prefix="left" reflect="1" />
 
   <joint name="gripper_extension" type="prismatic">
@@ -271,6 +212,18 @@
     <axis xyz="0 0 1"/>
     <origin xyz="0 0 ${bodylen/2}"/>
   </joint>
+
+  <!-- This block connects the head_swivel joint to an actuator (motor), which informs both
+  simulation and visualization of the robot -->
+  <transmission name="head_swivel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="$head_swivel_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="head_swivel">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
 
   <link name="box">
     <visual>

@@ -1,19 +1,34 @@
 <launch>
   <arg name="model" default="$(find cricket_robot)/cricket_description/urdf/cricket_robot.urdf.xacro"/>
-  <!-- <arg name="rvizconfig" default="$(find cricket_robot)/cricket_gazebo/rviz/urdf.rviz" /> -->
+  <arg name="rvizconfig" default="$(find cricket_robot)/cricket_gazebo/rviz/urdf.rviz" />
 
   <include file="$(find cricket_robot)/cricket_gazebo/launch/gazebo.launch">
-    <arg name="model" value="$(arg model)"/>
+    <arg name="model" value="$(arg model)" />
   </include>
 
-  <node name="rviz" pkg="rviz" type="rviz"/>
-   <!-- args="-d $(arg rvizconfig)" /> -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" />
 
   <rosparam command="load"
             file="$(find cricket_robot)/cricket_gazebo/config/joints.yaml"
             ns="cricket_joint_state_controller" />
+  <rosparam command="load"
+            file="$(find cricket_robot)/cricket_gazebo/config/shoulder.yaml"
+            ns="shoulder_state_controller" />
+  <rosparam command="load"
+            file="$(find cricket_robot)/cricket_gazebo/config/leg.yaml"
+            ns="legs_controller" />
+  <rosparam command="load"
+            file="$(find cricket_robot)/cricket_gazebo/config/diffdrive.yaml"
+            ns="cricket_diff_drive_controller" />
 
   <node name="cricket_controller_spawner" pkg="controller_manager" type="spawner"
     args="cricket_joint_state_controller
+          shoulder_state_controller
+          legs_controller
+          cricket_diff_drive_controller
           --shutdown-timeout 3"/>
+
+  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+    <param name="default_topic" value="/cricket_diff_drive_controller/cmd_vel"/>
+  </node>
 </launch>

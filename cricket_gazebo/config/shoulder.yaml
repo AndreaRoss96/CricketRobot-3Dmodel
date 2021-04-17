@@ -1,0 +1,2 @@
+type: "position_controllers/JointPositionController"
+joint: l_front_shoulder2_to_shoulder
