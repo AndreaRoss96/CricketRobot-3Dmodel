@@ -1,0 +1,22 @@
+# gazebo_ros_control_params.yaml
+gazebo_ros_control/pid_gains:
+  r_front_shoulder_to_body: {p: 100.0, i: 0.01, d: 10.0}
+  r_front_shoulder2_to_shoulder: {p: 100.0, i: 0.01, d: 10.0}
+  r_front_shoulder2_to_knee: {p: 100.0, i: 0.01, d: 10.0}
+  r_front_ankle: {p: 100.0, i: 0.01, d: 10.0}
+  r_front_final_track_joint: {p: 100.0, i: 0.01, d: 10.0}
+  r_back_shoulder_to_body: {p: 100.0, i: 0.01, d: 10.0}
+  r_back_shoulder2_to_shoulder: {p: 100.0, i: 0.01, d: 10.0}
+  r_back_shoulder2_to_knee: {p: 100.0, i: 0.01, d: 10.0}
+  r_back_ankle: {p: 100.0, i: 0.01, d: 10.0}
+  r_back_final_track_joint: {p: 100.0, i: 0.01, d: 10.0}
+  l_front_shoulder_to_body: {p: 100.0, i: 0.01, d: 10.0}
+  l_front_shoulder2_to_shoulder: {p: 100.0, i: 0.01, d: 10.0}
+  l_front_shoulder2_to_knee: {p: 100.0, i: 0.01, d: 10.0}
+  l_front_ankle: {p: 100.0, i: 0.01, d: 10.0}
+  l_front_final_track_joint: {p: 100.0, i: 0.01, d: 10.0}
+  l_back_shoulder_to_body: {p: 100.0, i: 0.01, d: 10.0}
+  l_back_shoulder2_to_shoulder: {p: 100.0, i: 0.01, d: 10.0}
+  l_back_shoulder2_to_knee: {p: 100.0, i: 0.01, d: 10.0}
+  l_back_ankle: {p: 100.0, i: 0.01, d: 10.0}
+  l_back_final_track_joint: {p: 100.0, i: 0.01, d: 10.0}

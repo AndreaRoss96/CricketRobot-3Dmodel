@@ -11,22 +11,55 @@
   <rosparam command="load"
             file="$(find cricket_robot)/cricket_gazebo/config/joints.yaml"
             ns="cricket_joint_state_controller" />
-  <rosparam command="load"
+  <!-- <rosparam command="load"
             file="$(find cricket_robot)/cricket_gazebo/config/shoulder.yaml"
-            ns="shoulder_state_controller" />
+            ns="shoulder_state_controller" /> -->
   <rosparam command="load"
-            file="$(find cricket_robot)/cricket_gazebo/config/leg.yaml"
-            ns="legs_controller" />
+            file="$(find cricket_robot)/cricket_gazebo/config/right_front_leg.yaml"
+            ns="right_front_leg_controller" />
+  <rosparam command="load"
+            file="$(find cricket_robot)/cricket_gazebo/config/right_back_leg.yaml"
+            ns="right_back_leg_controller" />
+  <rosparam command="load"
+            file="$(find cricket_robot)/cricket_gazebo/config/left_front_leg.yaml"
+            ns="left_front_leg_controller" />
+  <rosparam command="load"
+            file="$(find cricket_robot)/cricket_gazebo/config/left_back_leg.yaml"
+            ns="left_back_leg_controller" />
   <rosparam command="load"
             file="$(find cricket_robot)/cricket_gazebo/config/diffdrive.yaml"
             ns="cricket_diff_drive_controller" />
+  <rosparam param="/gazebo_ros_control/pid_gains">
+    r_front_shoulder_to_body: {p: 100.0, i: 0.01, d: 10.0}
+    r_front_shoulder2_to_shoulder: {p: 100.0, i: 0.01, d: 10.0}
+    r_front_shoulder2_to_knee: {p: 100.0, i: 0.01, d: 10.0}
+    r_front_ankle: {p: 100.0, i: 0.01, d: 10.0}
+    r_front_final_track_joint: {p: 100.0, i: 0.01, d: 10.0}
+    r_back_shoulder_to_body: {p: 100.0, i: 0.01, d: 10.0}
+    r_back_shoulder2_to_shoulder: {p: 100.0, i: 0.01, d: 10.0}
+    r_back_shoulder2_to_knee: {p: 100.0, i: 0.01, d: 10.0}
+    r_back_ankle: {p: 100.0, i: 0.01, d: 10.0}
+    r_back_final_track_joint: {p: 100.0, i: 0.01, d: 10.0}
+    l_front_shoulder_to_body: {p: 100.0, i: 0.01, d: 10.0}
+    l_front_shoulder2_to_shoulder: {p: 100.0, i: 0.01, d: 10.0}
+    l_front_shoulder2_to_knee: {p: 100.0, i: 0.01, d: 10.0}
+    l_front_ankle: {p: 100.0, i: 0.01, d: 10.0}
+    l_front_final_track_joint: {p: 100.0, i: 0.01, d: 10.0}
+    l_back_shoulder_to_body: {p: 100.0, i: 0.01, d: 10.0}
+    l_back_shoulder2_to_shoulder: {p: 100.0, i: 0.01, d: 10.0}
+    l_back_shoulder2_to_knee: {p: 100.0, i: 0.01, d: 10.0}
+    l_back_ankle: {p: 100.0, i: 0.01, d: 10.0}
+    l_back_final_track_joint: {p: 100.0, i: 0.01, d: 10.0}
+  </rosparam>
+
 
   <node name="cricket_controller_spawner" pkg="controller_manager" type="spawner"
     args="cricket_joint_state_controller
-          shoulder_state_controller
-          legs_controller
-          cricket_diff_drive_controller
-          --shutdown-timeout 3"/>
+          right_front_leg_controller
+          right_back_leg_controller
+          left_front_leg_controller
+          left_back_leg_controller
+          cricket_diff_drive_controller"/>
 
   <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
     <param name="default_topic" value="/cricket_diff_drive_controller/cmd_vel"/>

@@ -680,9 +680,18 @@
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
       <joint name="l_${body_side}_final_track_joint">
-        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        <!-- <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface> -->
       </joint>
     </transmission>
+
+    <gazebo reference="r_${body_side}_ends_track">
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+    </gazebo>
   </xacro:macro>
 
   <xacro:left_leg body_side="front" o_shoulder="0.12" o_s_box="-0.05" o_s2_base="-0.015" o_s2_box="0.045" o_s2_base_box="-0.14" o_k_box="-0.03" o_k_base_box="0.18" o_track="0.095" rpy_track="0.0"/>
