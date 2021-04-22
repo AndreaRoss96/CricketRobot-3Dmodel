@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "removing ..."
+echo "cleaning work space ..."
 
 rm -r ~/catkin_ws/*
 mkdir ~/catkin_ws/src/
@@ -9,8 +9,6 @@ mkdir ~/catkin_ws/src/cricket_robot/
 echo "copying ..."
 
 cp -a * ~/catkin_ws/src/cricket_robot/
-#`cp -a cricket_gazebo/ ~/catkin_ws/src/cricket_robot/`
-#`cp -a package.xml ~/catkin_ws/src/cricket_robot/`
 
 echo "setting up workspace"
 

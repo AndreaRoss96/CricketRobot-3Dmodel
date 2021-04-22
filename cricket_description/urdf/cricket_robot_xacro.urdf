@@ -170,7 +170,7 @@
   </joint>
   <transmission name="r_front_shoulder_to_body_trans">
     <type>transmission_interface/SimpleTransmission</type>
-    <actuator name="${body_side}_r_shoulder_to_body_motor">
+    <actuator name="front_r_shoulder_to_body_motor">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
     <joint name="r_front_shoulder_to_body">
@@ -458,7 +458,7 @@
   </joint>
   <transmission name="r_back_shoulder_to_body_trans">
     <type>transmission_interface/SimpleTransmission</type>
-    <actuator name="${body_side}_r_shoulder_to_body_motor">
+    <actuator name="back_r_shoulder_to_body_motor">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
     <joint name="r_back_shoulder_to_body">
@@ -805,6 +805,7 @@
     <parent link="l_front_shoulder_box"/>
     <child link="l_front_shoulder2_base"/>
     <limit effort="30" velocity="1.0"/>
+    <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="l_front_shoulder2_to_shoulder_trans">
     <type>transmission_interface/SimpleTransmission</type>
@@ -988,9 +989,17 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
     <joint name="l_front_final_track_joint">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <!-- <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface> -->
     </joint>
   </transmission>
+  <gazebo reference="r_front_ends_track">
+    <mu1 value="200.0"/>
+    <mu2 value="100.0"/>
+    <kp value="10000000.0"/>
+    <kd value="1.0"/>
+    <material>Gazebo/Grey</material>
+  </gazebo>
   <!-- SHOULDER 1 -->
   <link name="l_back_shoulder_cylinder">
     <visual name="l_back_shoulder_cylinder">
@@ -1078,6 +1087,7 @@
     <parent link="l_back_shoulder_box"/>
     <child link="l_back_shoulder2_base"/>
     <limit effort="30" velocity="1.0"/>
+    <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="l_back_shoulder2_to_shoulder_trans">
     <type>transmission_interface/SimpleTransmission</type>
@@ -1261,9 +1271,17 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
     <joint name="l_back_final_track_joint">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <!-- <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface> -->
     </joint>
   </transmission>
+  <gazebo reference="r_back_ends_track">
+    <mu1 value="200.0"/>
+    <mu2 value="100.0"/>
+    <kp value="10000000.0"/>
+    <kd value="1.0"/>
+    <material>Gazebo/Grey</material>
+  </gazebo>
   <!-- Gazebo plugin for ROS Control -->
   <gazebo>
     <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">

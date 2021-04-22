@@ -8,6 +8,16 @@
   <xacro:property name="body_box_size" value="0.1"/>
   <xacro:property name="pi" value="3.1415" />
   <xacro:property name="cyl_rad" value="0.03" />
+  <!-- Leg values -->
+  <xacro:property name="shoulder" value="0.12" />
+  <xacro:property name="s_box" value="-0.05" />
+  <xacro:property name="s2_base" value="-0.015" />
+  <xacro:property name="s2_box" value="0.045" />
+  <xacro:property name="s2_base_box" value="-0.14"/>
+  <xacro:property name="k_box" value="-0.03" />
+  <xacro:property name="k_base_box" value="0.18" />
+  <xacro:property name="track" value="0.095" />
+
 
   <material name="yellow">
     <color rgba="0.8 0.8 0 1"/>
@@ -120,7 +130,8 @@
   <!-- ##### RIGHT LEGS ##### -->
   <!-- ###################### -->
 
-  <xacro:macro name="right_leg" params="body_side o_shoulder o_s_box o_s2_base o_s2_box o_s2_base_box o_k_box o_k_base_box o_track rpy_track">
+  <!-- <xacro:macro name="right_leg" params="body_side shoulder s_box s2_base s2_box s2_base_box k_box k_base_box track rpy_track"> -->
+  <xacro:macro name="right_leg" params="body_side rev rpy_track">
     <!-- SHOULDER 1 -->
     <link name="r_${body_side}_shoulder_cylinder">
       <visual name="r_${body_side}_shoulder_cylinder">
@@ -142,7 +153,7 @@
     <joint name="r_${body_side}_shoulder_to_body" type="revolute">
       <axis xyz="1 0.0 0.0"/>
       <limit effort="1000.0" lower="-1.57075" upper="1.57075" velocity="0.5"/>
-      <origin xyz="${o_shoulder} 0.0 0.0" rpy="0 0 0.0"/>
+      <origin xyz="${rev*shoulder} 0.0 0.0" rpy="0 0 0.0"/>
       <parent link="right_cylinder"/>
       <child link="r_${body_side}_shoulder_cylinder"/>
       <limit effort="30" velocity="1.0"/>
@@ -151,7 +162,7 @@
 
     <transmission name="r_${body_side}_shoulder_to_body_trans">
       <type>transmission_interface/SimpleTransmission</type>
-      <actuator name="$${body_side}_r_shoulder_to_body_motor">
+      <actuator name="${body_side}_r_shoulder_to_body_motor">
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
       <joint name="r_${body_side}_shoulder_to_body">
@@ -161,14 +172,14 @@
     
     <link name="r_${body_side}_shoulder_box">
       <visual name="r_${body_side}_shoulder_box">
-        <origin rpy="0 0 0" xyz="${o_s_box} -0.0005 0"/>
+        <origin rpy="0 0 0" xyz="${rev*s_box} -0.0005 0"/>
         <geometry>
           <box size="0.12 0.03 0.06"/>
         </geometry>
         <material name="yellow"/>
       </visual>
       <collision>
-        <origin rpy="0 0 0" xyz="${o_s_box} -0.0005 0"/>
+        <origin rpy="0 0 0" xyz="${rev*s_box} -0.0005 0"/>
         <geometry>
           <box size="0.12 0.03 0.06"/>
         </geometry>
@@ -177,7 +188,7 @@
     </link>
 
     <joint name="r_${body_side}_shoulder_cyl_to_box" type="fixed">
-      <origin xyz="${- o_s_box} 0.017 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="${- rev * s_box} 0.017 0.0" rpy="0.0 0.0 0.0"/>
       <parent link="r_${body_side}_shoulder_cylinder"/>
       <child link="r_${body_side}_shoulder_box"/>
     </joint>
@@ -185,14 +196,14 @@
     <!-- SHOULDER 2 -->
     <link name="r_${body_side}_shoulder2_base">
       <visual name="r_${body_side}_shoulder2_base">
-        <origin xyz="${o_s2_base} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${rev*s2_base} 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.05 0.01 0.06"/>
         </geometry>
         <material name="yellow"/>
       </visual>
       <collision>
-        <origin xyz="${o_s2_base} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${rev*s2_base} 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.05 0.01 0.06"/>
         </geometry>
@@ -221,14 +232,14 @@
 
     <link name="r_${body_side}_shoulder2_box">
       <visual name="r_${body_side}_shoulder2_box">
-        <origin xyz="${o_s2_box} 0.02 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${rev*s2_box} 0.02 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.11 0.05 0.06"/>
         </geometry>
         <material name="yellow"/>
       </visual>
       <collision>
-        <origin xyz="${o_s2_box} 0.02 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${rev*s2_box} 0.02 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.11 0.05 0.06"/>
         </geometry>
@@ -237,7 +248,7 @@
     </link>
 
     <joint name="r_${body_side}_shoulder2_base_to_box" type="fixed">
-      <origin xyz="${o_s2_base_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="${rev*s2_base_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <parent link="r_${body_side}_shoulder2_base"/>
       <child link="r_${body_side}_shoulder2_box"/>
     </joint>
@@ -245,14 +256,14 @@
     <!-- KNEE -->
     <link name="r_${body_side}_knee_base">
       <visual name="r_${body_side}_knee_base">
-        <origin xyz="${- o_s_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${-rev * s_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.12 0.01 0.06"/>
         </geometry>
         <material name="yellow"/>
       </visual>
       <collision>
-        <origin xyz="${- o_s_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${-rev * s_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.12 0.01 0.06"/>
         </geometry>
@@ -281,14 +292,14 @@
 
     <link name="r_${body_side}_knee_box">
       <visual name="r_${body_side}_knee_box">
-        <origin xyz="${o_k_box} -0.02 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${rev*k_box} -0.02 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.08 0.05 0.06"/>
         </geometry>
         <material name="yellow"/>
       </visual>
       <collision>
-        <origin xyz="${o_k_box} -0.02 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${rev*k_box} -0.02 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.08 0.05 0.06"/>
         </geometry>
@@ -297,7 +308,7 @@
     </link>
 
     <joint name="r_${body_side}_knee_base_to_box" type="fixed">
-      <origin xyz="${o_k_base_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="${rev*k_base_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <parent link="r_${body_side}_knee_base"/>
       <child link="r_${body_side}_knee_box"/>
     </joint>
@@ -381,7 +392,7 @@
 
     <joint name="r_${body_side}_final_track_joint" type="continuous">
       <axis xyz="0.0 1 0.0"/>
-      <origin xyz="${o_track} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="${rev*track} 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <parent link="r_${body_side}_track"/>
       <child link="r_${body_side}_ends_track"/>
       <limit effort="30" velocity="1.0"/>
@@ -407,14 +418,19 @@
     </gazebo>
   </xacro:macro>
 
-  <xacro:right_leg body_side="front" o_shoulder="0.12" o_s_box="-0.05" o_s2_base="-0.015" o_s2_box="0.045" o_s2_base_box="-0.14" o_k_box="-0.03" o_k_base_box="0.18" o_track="0.095" rpy_track="0.0"/>
-  <xacro:right_leg body_side="back" o_shoulder="-0.12" o_s_box="0.05" o_s2_base="0.015" o_s2_box="-0.045" o_s2_base_box="0.14" o_k_box="0.03" o_k_base_box="-0.18" o_track="-0.095" rpy_track="3.1415"/>
+  <!-- <xacro:right_leg body_side="front" shoulder="0.12" s_box="0.05" s2_base="-0.015" s2_box="0.045" s2_base_box="-0.14" k_box="-0.03" k_base_box="0.18" track="0.095" rpy_track="0.0"/>
+  <xacro:right_leg body_side="back" shoulder="-0.12" s_box="0.05" s2_base="0.015" s2_box="-0.045" s2_base_box="0.14" k_box="0.03" k_base_box="-0.18" track="-0.095" rpy_track="3.1415"/> -->
+  <xacro:right_leg body_side="front" rev="1" rpy_track="0.0"/>
+  <xacro:right_leg body_side="back" rev="-1" rpy_track="3.1415"/>
+
+
 
   <!-- ###################### -->
   <!-- ##### LEFT LEGS ###### -->
   <!-- ###################### -->
 
-  <xacro:macro name="left_leg" params="body_side o_shoulder o_s_box o_s2_base o_s2_box o_s2_base_box o_k_box o_k_base_box o_track rpy_track">
+  <!-- <xacro:macro name="left_leg" params="body_side shoulder s_box s2_base s2_box s2_base_box k_box k_base_box track rpy_track"> -->
+  <xacro:macro name="left_leg" params="body_side rev rpy_track">
     <!-- SHOULDER 1 -->
     <link name="l_${body_side}_shoulder_cylinder">
       <visual name="l_${body_side}_shoulder_cylinder">
@@ -436,7 +452,7 @@
     <joint name="l_${body_side}_shoulder_to_body" type="revolute">
       <axis xyz="1 0.0 0.0"/>
       <limit effort="1000.0" lower="-1.57075" upper="1.57075" velocity="0.5"/>
-      <origin xyz="${o_shoulder} 0.0 0.0" rpy="0 0 0.0"/>
+      <origin xyz="${rev*shoulder} 0.0 0.0" rpy="0 0 0.0"/>
       <parent link="left_cylinder"/>
       <child link="l_${body_side}_shoulder_cylinder"/>
       <limit effort="30" velocity="1.0"/>
@@ -454,14 +470,14 @@
     
     <link name="l_${body_side}_shoulder_box">
       <visual name="l_${body_side}_shoulder_box">
-        <origin rpy="0 0 0" xyz=" ${o_s_box} 0.0005 0"/>
+        <origin rpy="0 0 0" xyz=" ${rev*s_box} 0.0005 0"/>
         <geometry>
           <box size="0.12 0.03 0.06"/>
         </geometry>
         <material name="yellow"/>
       </visual>
       <collision>
-        <origin rpy="0 0 0" xyz=" ${o_s_box} 0.0005 0"/>
+        <origin rpy="0 0 0" xyz=" ${rev*s_box} 0.0005 0"/>
         <geometry>
           <box size="0.12 0.03 0.06"/>
         </geometry>
@@ -470,7 +486,7 @@
     </link>
 
     <joint name="l_${body_side}_shoulder_cyl_to_box" type="fixed">
-      <origin xyz="${- o_s_box} -0.017 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="${- rev*s_box} -0.017 0.0" rpy="0.0 0.0 0.0"/>
       <parent link="l_${body_side}_shoulder_cylinder"/>
       <child link="l_${body_side}_shoulder_box"/>
     </joint>
@@ -478,14 +494,14 @@
     <!-- SHOULDER 2  -->
     <link name="l_${body_side}_shoulder2_base">
       <visual name="l_${body_side}_shoulder2_base">
-        <origin xyz="${o_s2_base} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${rev*s2_base} 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.05 0.01 0.06"/>
         </geometry>
         <material name="yellow"/>
       </visual>
       <collision>
-        <origin xyz="${o_s2_base} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${rev*s2_base} 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.05 0.01 0.06"/>
         </geometry>
@@ -499,6 +515,7 @@
       <parent link="l_${body_side}_shoulder_box"/>
       <child link="l_${body_side}_shoulder2_base"/>
       <limit effort="30" velocity="1.0"/>
+      <dynamics damping="0.0" friction="0.0"/>
     </joint>
 
     <transmission name="l_${body_side}_shoulder2_to_shoulder_trans">
@@ -513,14 +530,14 @@
 
     <link name="l_${body_side}_shoulder2_box">
       <visual name="l_${body_side}_shoulder2_box">
-        <origin xyz="${o_s2_box} -0.02 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${rev*s2_box} -0.02 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.11 0.05 0.06"/>
         </geometry>
         <material name="yellow"/>
       </visual>
       <collision>
-        <origin xyz="${o_s2_box} -0.02 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${rev*s2_box} -0.02 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.11 0.05 0.06"/>
         </geometry>
@@ -529,7 +546,7 @@
     </link>
 
     <joint name="l_${body_side}_shoulder2_base_to_box" type="fixed">
-      <origin xyz="${o_s2_base_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="${rev*s2_base_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <parent link="l_${body_side}_shoulder2_base"/>
       <child link="l_${body_side}_shoulder2_box"/>
     </joint>
@@ -537,14 +554,14 @@
     <!-- KNEE -->
     <link name="l_${body_side}_knee_base">
       <visual name="l_${body_side}_knee_base">
-        <origin xyz="${- o_s_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${-rev*s_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.12 0.01 0.06"/>
         </geometry>
         <material name="yellow"/>
       </visual>
       <collision>
-        <origin xyz="${- o_s_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${-rev*s_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.12 0.01 0.06"/>
         </geometry>
@@ -571,14 +588,14 @@
 
     <link name="l_${body_side}_knee_box">
       <visual name="l_${body_side}_knee_box">
-        <origin xyz="${o_k_box} 0.02 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${rev*k_box} 0.02 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.08 0.05 0.06"/>
         </geometry>
         <material name="yellow"/>
       </visual>
       <collision>
-        <origin xyz="${o_k_box} 0.02 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="${rev*k_box} 0.02 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
           <box size="0.08 0.05 0.06"/>
         </geometry>
@@ -587,7 +604,7 @@
     </link>
 
     <joint name="l_${body_side}_knee_base_to_box" type="fixed">
-      <origin xyz="${o_k_base_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="${rev*k_base_box} 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <parent link="l_${body_side}_knee_base"/>
       <child link="l_${body_side}_knee_box"/>
     </joint>
@@ -669,7 +686,7 @@
 
     <joint name="l_${body_side}_final_track_joint" type="continuous">
       <axis xyz="0.0 1 0.0"/>
-      <origin xyz="${o_track} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="${rev*track} 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <parent link="l_${body_side}_track"/>
       <child link="l_${body_side}_ends_track"/>
     </joint>
@@ -694,8 +711,13 @@
     </gazebo>
   </xacro:macro>
 
-  <xacro:left_leg body_side="front" o_shoulder="0.12" o_s_box="-0.05" o_s2_base="-0.015" o_s2_box="0.045" o_s2_base_box="-0.14" o_k_box="-0.03" o_k_base_box="0.18" o_track="0.095" rpy_track="0.0"/>
-  <xacro:left_leg body_side="back" o_shoulder="-0.12" o_s_box="0.05" o_s2_base="0.015" o_s2_box="-0.045" o_s2_base_box="0.14" o_k_box="0.03" o_k_base_box="-0.18" o_track="-0.095" rpy_track="3.1415"/> 
+  <!-- 
+  <xacro:left_leg body_side="front" shoulder="0.12" s_box="-0.05" s2_base="-0.015" s2_box="0.045" s2_base_box="-0.14" k_box="-0.03" k_base_box="0.18" track="0.095" rpy_track="0.0"/>
+  <xacro:left_leg body_side="back" shoulder="-0.12" s_box="0.05" s2_base="0.015" s2_box="-0.045" s2_base_box="0.14" k_box="0.03" k_base_box="-0.18" track="-0.095" rpy_track="3.1415"/>
+  -->
+  <xacro:left_leg body_side="front" rev="1" rpy_track="0.0"/>
+  <xacro:left_leg body_side="back" rev="-1" rpy_track="3.1415"/> 
+
 
   <!-- Gazebo plugin for ROS Control -->
   <gazebo>
