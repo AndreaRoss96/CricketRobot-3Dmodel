@@ -1,6 +1,7 @@
 <launch>
 
-  <arg name="model" default="$(find cricket_robot)/cricket_description/urdf/cricket_robot_xacro.urdf"/>
+  <arg name="model" default="$(find cricket_robot)/cricket_description/urdf/cricket_robot.urdf.xacro"/>
+<!-- cricket_robot_xacro.urdf"/> -->
   <arg name="gui" default="true"/>
   <arg name="rvizconfig" default="$(find cricket_robot)/cricket_gazebo/rviz/urdf.rviz"/>
 

@@ -322,14 +322,14 @@
       <visual name="r_${body_side}_jointed_track">
         <origin xyz="0.0 0.0 0.0" rpy="0.0 1.57075 1.57075"/>
         <geometry>
-          <cylinder radius="${cyl_rad}" length="0.05"/>
+          <cylinder radius="${cyl_rad - cyl_rad/2}" length="0.05"/>
         </geometry>
         <material name="yellow"/>
       </visual>
       <collision>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 1.57075 1.57075"/>
         <geometry>
-          <cylinder radius="${cyl_rad}" length="0.05"/>
+          <cylinder radius="${cyl_rad - cyl_rad/2}" length="0.05"/>
         </geometry>
       </collision>
       <xacro:default_inertial mass="0.5"/>
@@ -354,18 +354,61 @@
       </joint>
     </transmission>
 
-    <link name="r_${body_side}_track">
+    <!--wheels-->
+    <link name="r_${body_side}_starts_track">
+      <visual name="r_${body_side}_starts_track">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 1.57075 1.57075"/>
+        <geometry>
+          <cylinder radius="${cyl_rad}" length="0.05"/>
+        </geometry>
+        <material name="yellow"/>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 1.57075 1.57075"/>
+        <geometry>
+          <cylinder radius="${cyl_rad}" length="0.05"/>
+        </geometry>
+      </collision>
+      <xacro:default_inertial mass="0.5"/>
+    </link>
+
+    <joint name="r_${body_side}_begin_track_joint" type="continuous">
+      <axis xyz="0.0 1 0.0"/>
+      <origin xyz="0.0 0 0.0" rpy="0.0 0.0 0.0"/>
+      <parent link="r_${body_side}_jointed_track"/>
+      <child link="r_${body_side}_starts_track"/>
+    </joint>
+
+    <transmission name="r_${body_side}_begin_track_joint_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <actuator name="${body_side}_r_begin_track_joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+      <joint name="r_${body_side}_begin_track_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+    </transmission>
+
+    <gazebo reference="r_${body_side}_starts_track">
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <link name="r_${body_side}_track"> <!-- Between the two wheels -->
       <visual name="r_${body_side}_track">
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
-          <box size="0.190 0.05 0.06"/>
+          <box size="0.190 0.04 0.06"/>
         </geometry>
         <material name="yellow"/>
       </visual>
       <collision>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
-          <box size="0.190 0.05 0.06"/>
+          <box size="0.190 0.04 0.06"/>
         </geometry>
       </collision>
       <xacro:default_inertial mass="4"/>
@@ -618,20 +661,20 @@
       <visual name="l_${body_side}_jointed_track">
         <origin xyz="0.0 0.0 0.0" rpy="0.0 1.57075 1.57075"/>
         <geometry>
-          <cylinder radius="${cyl_rad}" length="0.05"/>
+          <cylinder radius="${cyl_rad - cyl_rad/2}" length="0.05"/>
         </geometry>
         <material name="yellow"/>
       </visual>
       <collision>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 1.57075 1.57075"/>
         <geometry>
-          <cylinder radius="${cyl_rad}" length="0.05"/>
+          <cylinder radius="${cyl_rad - cyl_rad/2}" length="0.05"/>
         </geometry>
       </collision>
       <xacro:default_inertial mass="0.5"/>
     </link>
 
-    <joint name="l_${body_side}_ankle" type="continuous">
+    <joint name="l_${body_side}_ankle" type="continuous"> <!--For the movement of the whole track-->
       <axis xyz="0.0 1 0.0"/>
       <origin xyz="0.0 -0.032 0.0" rpy="0.0 0.0 0.0"/>
       <parent link="l_${body_side}_knee_box"/>
@@ -648,18 +691,61 @@
       </joint>
     </transmission>
 
-    <link name="l_${body_side}_track">
+    <!--wheels-->
+    <link name="l_${body_side}_starts_track">
+      <visual name="l_${body_side}_starts_track">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 1.57075 1.57075"/>
+        <geometry>
+          <cylinder radius="${cyl_rad}" length="0.05"/>
+        </geometry>
+        <material name="yellow"/>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 1.57075 1.57075"/>
+        <geometry>
+          <cylinder radius="${cyl_rad}" length="0.05"/>
+        </geometry>
+      </collision>
+      <xacro:default_inertial mass="0.5"/>
+    </link>
+
+    <joint name="l_${body_side}_begin_track_joint" type="continuous">
+      <axis xyz="0.0 1 0.0"/>
+      <origin xyz="0.0 0 0.0" rpy="0.0 0.0 0.0"/>
+      <parent link="l_${body_side}_jointed_track"/>
+      <child link="l_${body_side}_starts_track"/>
+    </joint>
+
+    <transmission name="l_${body_side}_begin_track_joint_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <actuator name="${body_side}_l_begin_track_joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+      <joint name="l_${body_side}_begin_track_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+    </transmission>
+
+    <gazebo reference="l_${body_side}_starts_track">
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <link name="l_${body_side}_track"> <!-- Between the two wheels -->
       <visual name="l_${body_side}_track">
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
-          <box size="0.190 0.05 0.06"/>
+          <box size="0.190 0.04 0.06"/>
         </geometry>
         <material name="yellow"/>
       </visual>
       <collision>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
-          <box size="0.190 0.05 0.06"/>
+          <box size="0.190 0.04 0.06"/>
         </geometry>
       </collision>
       <xacro:default_inertial mass="4.5"/>
@@ -706,7 +792,7 @@
       </joint>
     </transmission>
 
-    <gazebo reference="r_${body_side}_ends_track">
+    <gazebo reference="l_${body_side}_ends_track">
       <mu1 value="200.0"/>
       <mu2 value="100.0"/>
       <kp value="10000000.0" />
@@ -726,7 +812,8 @@
   <!-- Gazebo plugin for ROS Control -->
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/</robotNamespace>
+      <robotNamespace>/cricket</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>
   </gazebo>
 

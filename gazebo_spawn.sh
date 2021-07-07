@@ -21,8 +21,8 @@ catkin_make
 
 echo "ws set up, launch:"
 
-roslaunch cricket_robot joints.launch
+roslaunch cricket_robot display.launch
 
-cd ../Desktop/Exp/CricketRobot-3Dmodel/
+cd ../Desktop/my_cricket/CricketRobot-3Dmodel-main/
 
 
